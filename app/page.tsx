@@ -22,7 +22,7 @@ export default function SeatingChartPage() {
   const [showImportDialog, setShowImportDialog] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showTemplatesModal, setShowTemplatesModal] = useState(false)
-  const [guestListCollapsed, setGuestListCollapsed] = useState(false)
+  const [, setGuestListCollapsed] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userEmail, setUserEmail] = useState<string>()
@@ -103,14 +103,20 @@ export default function SeatingChartPage() {
 
   const getMatchingGuestIds = () => {
     if (!searchQuery) return new Set<string>()
-    return new Set(guests.filter((g) => g.name.toLowerCase().includes(searchQuery.toLowerCase())).map((g) => g.id))
+    return new Set(
+      guests
+        .filter((g) => g.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .map((g) => g.id),
+    )
   }
 
   const getHighlightedTableIds = () => {
     if (!searchQuery) return new Set<string>()
     const matchingGuestIds = getMatchingGuestIds()
     return new Set(
-      tables.filter((table) => table.guests.some((guest) => matchingGuestIds.has(guest.id))).map((table) => table.id),
+      tables
+        .filter((table) => table.guests.some((guest) => matchingGuestIds.has(guest.id)))
+        .map((table) => table.id),
     )
   }
 
@@ -253,10 +259,15 @@ export default function SeatingChartPage() {
     if (table) {
       const guestsToUnassign = guests.filter((g) => g.tableId === id)
       if (guestsToUnassign.length > 0) {
-        setGuests(guests.map((guest) => (guest.tableId === id ? { ...guest, tableId: undefined } : guest)))
-        toast.info(`${guestsToUnassign.length} guest${guestsToUnassign.length > 1 ? "s" : ""} unassigned`, {
-          description: `${table.name || table.id} was deleted`,
-        })
+        setGuests(
+          guests.map((guest) => (guest.tableId === id ? { ...guest, tableId: undefined } : guest)),
+        )
+        toast.info(
+          `${guestsToUnassign.length} guest${guestsToUnassign.length > 1 ? "s" : ""} unassigned`,
+          {
+            description: `${table.name || table.id} was deleted`,
+          },
+        )
       }
     }
     setTables(tables.filter((table) => table.id !== id))
@@ -316,7 +327,11 @@ export default function SeatingChartPage() {
     }
 
     // Add to new table
-    setTables(tables.map((table) => (table.id === tableId ? { ...table, guests: [...table.guests, guest] } : table)))
+    setTables(
+      tables.map((table) =>
+        table.id === tableId ? { ...table, guests: [...table.guests, guest] } : table,
+      ),
+    )
     setGuests(guests.map((g) => (g.id === guest.id ? { ...g, tableId } : g)))
     setDraggingGuest(null)
 
@@ -403,6 +418,7 @@ export default function SeatingChartPage() {
         toast.error("Failed to import CSV file", {
           description: "Please check the file format and try again",
         })
+        console.error(error)
       }
     }
     reader.readAsText(file)
@@ -430,11 +446,12 @@ export default function SeatingChartPage() {
       toast.error("Failed to export PDF", {
         description: "Please try again or contact support",
       })
+      console.error(error)
     }
   }
 
   return (
-    <div className="relative flex h-screen bg-background flex-col md:flex-row">
+    <div className="bg-background relative flex h-screen flex-col md:flex-row">
       <FloralDecoration />
 
       <GuestList
@@ -480,7 +497,11 @@ export default function SeatingChartPage() {
       </div>
 
       <FloatingAddMenu onAddTable={addTable} onAddElement={addElement} />
-      <ImportCSVDialog open={showImportDialog} onOpenChange={setShowImportDialog} onImport={handleCSVImport} />
+      <ImportCSVDialog
+        open={showImportDialog}
+        onOpenChange={setShowImportDialog}
+        onImport={handleCSVImport}
+      />
       <LoginModal open={showLoginModal} onOpenChange={setShowLoginModal} onLogin={handleLogin} />
       <TemplatesModal
         open={showTemplatesModal}

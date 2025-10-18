@@ -30,6 +30,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import Image from "next/image"
 
 interface GuestListProps {
   guests: Guest[]
@@ -167,7 +168,7 @@ export function GuestList({
         onDragStart={() => !isEditing && onDragStart(guest)}
         className={cn(
           "flex items-center justify-between gap-1.5 p-2 shadow-sm transition-all duration-200",
-          !isEditing && "cursor-move hover:shadow-md hover:scale-[1.02] hover:border-primary",
+          !isEditing && "hover:border-primary cursor-move hover:scale-[1.02] hover:shadow-md",
         )}
       >
         {isEditing ? (
@@ -183,21 +184,35 @@ export function GuestList({
               }}
             />
             <div className="flex gap-0.5">
-              <Button variant="ghost" size="icon" className="h-6 w-6 cursor-pointer" onClick={() => saveEdit(guest.id)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6 cursor-pointer"
+                onClick={() => saveEdit(guest.id)}
+              >
                 <Check className="h-3 w-3 text-green-600" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-6 w-6 cursor-pointer" onClick={cancelEdit}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6 cursor-pointer"
+                onClick={cancelEdit}
+              >
                 <X className="h-3 w-3 text-red-600" />
               </Button>
             </div>
           </>
         ) : (
           <>
-            <div className="flex flex-1 flex-col min-w-0">
-              <span className="text-xs font-medium text-card-foreground truncate">{guest.name}</span>
-              {showTable && <span className="text-[10px] text-muted-foreground">Table {guest.tableId}</span>}
+            <div className="flex min-w-0 flex-1 flex-col">
+              <span className="text-card-foreground truncate text-xs font-medium">
+                {guest.name}
+              </span>
+              {showTable && (
+                <span className="text-muted-foreground text-[10px]">Table {guest.tableId}</span>
+              )}
             </div>
-            <div className="flex gap-0.5 flex-shrink-0">
+            <div className="flex flex-shrink-0 gap-0.5">
               <Button
                 variant="ghost"
                 size="icon"
@@ -223,7 +238,7 @@ export function GuestList({
 
   if (isCollapsed) {
     return (
-      <div className="relative z-10 w-16 border-r border-border bg-card/95 backdrop-blur-sm shadow-xl flex flex-col items-center py-6 gap-4">
+      <div className="border-border bg-card/95 relative z-10 flex w-16 flex-col items-center gap-4 border-r py-6 shadow-xl backdrop-blur-sm">
         <Button
           variant="ghost"
           size="icon"
@@ -233,7 +248,7 @@ export function GuestList({
         >
           <ChevronRight className="h-5 w-5" />
         </Button>
-        <div className="h-px w-8 bg-border" />
+        <div className="bg-border h-px w-8" />
         <Button
           variant="ghost"
           size="icon"
@@ -243,35 +258,89 @@ export function GuestList({
         >
           <Users className="h-5 w-5" />
         </Button>
-        <Button variant="ghost" size="icon" onClick={onSave} className="cursor-pointer" title="Save">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onSave}
+          className="cursor-pointer"
+          title="Save"
+        >
           <Save className="h-5 w-5" />
         </Button>
-        <Button variant="ghost" size="icon" onClick={onExport} className="cursor-pointer" title="Export">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onExport}
+          className="cursor-pointer"
+          title="Export"
+        >
           <Download className="h-5 w-5" />
         </Button>
-        <Button variant="ghost" size="icon" onClick={onExportPDF} className="cursor-pointer" title="Export PDF">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onExportPDF}
+          className="cursor-pointer"
+          title="Export PDF"
+        >
           <FileDown className="h-5 w-5" />
         </Button>
-        <Button variant="ghost" size="icon" onClick={onImport} className="cursor-pointer" title="Import">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onImport}
+          className="cursor-pointer"
+          title="Import"
+        >
           <Upload className="h-5 w-5" />
         </Button>
-        <Button variant="ghost" size="icon" onClick={onOpenTemplates} className="cursor-pointer" title="Templates">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onOpenTemplates}
+          className="cursor-pointer"
+          title="Templates"
+        >
           <Sparkles className="h-5 w-5" />
         </Button>
-        <Button variant="ghost" size="icon" onClick={onToggleGrid} className="cursor-pointer" title="Toggle grid">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onToggleGrid}
+          className="cursor-pointer"
+          title="Toggle grid"
+        >
           <Grid3x3 className="h-5 w-5" />
         </Button>
         <div className="flex-1" />
         {isLoggedIn ? (
-          <Button variant="ghost" size="icon" onClick={onLogout} className="cursor-pointer" title="Logout">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onLogout}
+            className="cursor-pointer"
+            title="Logout"
+          >
             <LogOut className="h-5 w-5" />
           </Button>
         ) : (
-          <Button variant="ghost" size="icon" onClick={onOpenLogin} className="cursor-pointer" title="Login">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onOpenLogin}
+            className="cursor-pointer"
+            title="Login"
+          >
             <LogIn className="h-5 w-5" />
           </Button>
         )}
-        <Button variant="ghost" size="icon" onClick={onToggleDarkMode} className="cursor-pointer" title="Toggle theme">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onToggleDarkMode}
+          className="cursor-pointer"
+          title="Toggle theme"
+        >
           {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
         </Button>
       </div>
@@ -279,13 +348,13 @@ export function GuestList({
   }
 
   return (
-    <div className="relative z-10 w-80 md:w-80 sm:w-72 border-r border-border bg-card/95 backdrop-blur-sm shadow-xl">
+    <div className="border-border bg-card/95 relative z-10 w-80 border-r shadow-xl backdrop-blur-sm sm:w-72 md:w-80">
       <div className="h-full overflow-y-auto p-6">
         <Tabs defaultValue="guests" className="flex h-full flex-col">
-          <div className="border-b border-border pb-3">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="flex items-center gap-2 font-serif text-2xl font-semibold text-foreground">
-                <Users className="h-6 w-6 text-primary" />
+          <div className="border-border border-b pb-3">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-foreground flex items-center gap-2 font-serif text-4xl font-semibold">
+                <Image src="/logo.png" width={44} height={44} alt="seatlee" />
                 Seatlee
               </h2>
               <div className="flex items-center gap-1">
@@ -310,16 +379,16 @@ export function GuestList({
               </div>
             </div>
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="guests" className="text-xs cursor-pointer">
+              <TabsTrigger value="guests" className="cursor-pointer text-xs">
                 Guests
               </TabsTrigger>
-              <TabsTrigger value="actions" className="text-xs cursor-pointer">
+              <TabsTrigger value="actions" className="cursor-pointer text-xs">
                 Actions
               </TabsTrigger>
             </TabsList>
           </div>
 
-          <TabsContent value="guests" className="flex-1 overflow-hidden mt-4">
+          <TabsContent value="guests" className="mt-4 flex-1 overflow-hidden">
             <div className="flex h-full flex-col gap-4">
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <Input
@@ -334,7 +403,7 @@ export function GuestList({
               </form>
 
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
                 <Input
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
@@ -345,7 +414,7 @@ export function GuestList({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-6 w-6 cursor-pointer"
+                    className="absolute top-1/2 right-1 h-6 w-6 -translate-y-1/2 cursor-pointer"
                     onClick={() => handleSearchChange("")}
                   >
                     <X className="h-3 w-3" />
@@ -357,7 +426,7 @@ export function GuestList({
                 <Button
                   variant={filter === "all" ? "default" : "outline"}
                   size="sm"
-                  className="flex-1 cursor-pointer text-xs h-8"
+                  className="h-8 flex-1 cursor-pointer text-xs"
                   onClick={() => setFilter("all")}
                 >
                   All ({guests.length})
@@ -365,7 +434,7 @@ export function GuestList({
                 <Button
                   variant={filter === "assigned" ? "default" : "outline"}
                   size="sm"
-                  className="flex-1 cursor-pointer text-xs h-8"
+                  className="h-8 flex-1 cursor-pointer text-xs"
                   onClick={() => setFilter("assigned")}
                 >
                   Assigned ({guests.filter((g) => g.tableId).length})
@@ -373,7 +442,7 @@ export function GuestList({
                 <Button
                   variant={filter === "unassigned" ? "default" : "outline"}
                   size="sm"
-                  className="flex-1 cursor-pointer text-xs h-8"
+                  className="h-8 flex-1 cursor-pointer text-xs"
                   onClick={() => setFilter("unassigned")}
                 >
                   Unassigned ({guests.filter((g) => !g.tableId).length})
@@ -383,13 +452,13 @@ export function GuestList({
               <div className="flex-1 space-y-4 overflow-y-auto">
                 {(filter === "all" || filter === "unassigned") && (
                   <div>
-                    <h3 className="mb-2 text-sm font-medium text-muted-foreground">
+                    <h3 className="text-muted-foreground mb-2 text-sm font-medium">
                       Unassigned ({unassignedGuests.length})
                     </h3>
                     <div className="space-y-2">
                       {unassignedGuests.map((guest) => renderGuestCard(guest))}
                       {unassignedGuests.length === 0 && (
-                        <p className="text-center text-xs italic text-muted-foreground py-4">
+                        <p className="text-muted-foreground py-4 text-center text-xs italic">
                           {searchQuery ? "No matching guests" : "No unassigned guests"}
                         </p>
                       )}
@@ -399,23 +468,25 @@ export function GuestList({
 
                 {(filter === "all" || filter === "assigned") && (
                   <div>
-                    <h3 className="mb-2 text-sm font-medium text-muted-foreground">
+                    <h3 className="text-muted-foreground mb-2 text-sm font-medium">
                       Assigned ({assignedGuests.length})
                     </h3>
                     <div className="space-y-3">
                       {guestsByTable.length === 0 ? (
-                        <p className="text-center text-xs italic text-muted-foreground py-4">
+                        <p className="text-muted-foreground py-4 text-center text-xs italic">
                           {searchQuery ? "No matching guests" : "No assigned guests"}
                         </p>
                       ) : (
                         guestsByTable.map(({ tableId, tableName, guests: tableGuests }) => (
                           <div key={tableId} className="space-y-2">
                             <div className="flex items-center gap-2">
-                              <div className="h-px flex-1 bg-border" />
-                              <span className="text-xs font-medium text-primary">{tableName}</span>
-                              <div className="h-px flex-1 bg-border" />
+                              <div className="bg-border h-px flex-1" />
+                              <span className="text-primary text-xs font-medium">{tableName}</span>
+                              <div className="bg-border h-px flex-1" />
                             </div>
-                            <div className="space-y-2">{tableGuests.map((guest) => renderGuestCard(guest))}</div>
+                            <div className="space-y-2">
+                              {tableGuests.map((guest) => renderGuestCard(guest))}
+                            </div>
                           </div>
                         ))
                       )}
@@ -429,54 +500,70 @@ export function GuestList({
           <TabsContent value="actions" className="mt-4 space-y-3">
             <Button
               variant="outline"
-              className="w-full justify-start bg-transparent cursor-pointer"
+              className="w-full cursor-pointer justify-start bg-transparent"
               onClick={onOpenTemplates}
             >
               <Sparkles className="mr-2 h-4 w-4" />
               Templates
             </Button>
-            <Button variant="outline" className="w-full justify-start bg-transparent cursor-pointer" onClick={onSave}>
+            <Button
+              variant="outline"
+              className="w-full cursor-pointer justify-start bg-transparent"
+              onClick={onSave}
+            >
               <Save className="mr-2 h-4 w-4" />
               Save
             </Button>
-            <Button variant="outline" className="w-full justify-start bg-transparent cursor-pointer" onClick={onExport}>
+            <Button
+              variant="outline"
+              className="w-full cursor-pointer justify-start bg-transparent"
+              onClick={onExport}
+            >
               <Download className="mr-2 h-4 w-4" />
               Export JSON
             </Button>
             <Button
               variant="outline"
-              className="w-full justify-start bg-transparent cursor-pointer"
+              className="w-full cursor-pointer justify-start bg-transparent"
               onClick={onExportPDF}
             >
               <FileDown className="mr-2 h-4 w-4" />
               Export as PDF
             </Button>
-            <Button variant="outline" className="w-full justify-start bg-transparent cursor-pointer" onClick={onImport}>
+            <Button
+              variant="outline"
+              className="w-full cursor-pointer justify-start bg-transparent"
+              onClick={onImport}
+            >
               <Upload className="mr-2 h-4 w-4" />
               Import CSV
             </Button>
             <Button
               variant="outline"
-              className="w-full justify-start bg-transparent cursor-pointer"
+              className="w-full cursor-pointer justify-start bg-transparent"
               onClick={onToggleGrid}
             >
               <Grid3x3 className="mr-2 h-4 w-4" />
               {showGrid ? "Hide Grid" : "Show Grid"}
             </Button>
-            <Button variant="outline" className="w-full justify-start bg-transparent cursor-pointer" disabled>
+            <Button
+              variant="outline"
+              className="w-full cursor-pointer justify-start bg-transparent"
+              disabled
+            >
               <FolderOpen className="mr-2 h-4 w-4" />
               Load from Backend
-              <span className="ml-auto text-xs text-muted-foreground">Soon</span>
+              <span className="text-muted-foreground ml-auto text-xs">Soon</span>
             </Button>
 
-            <div className="pt-3 border-t border-border">
+            <div className="border-border border-t pt-3">
               {isLoggedIn ? (
                 <div className="space-y-2">
-                  <p className="text-xs text-muted-foreground px-2">Logged in as</p>
-                  <p className="text-sm font-medium px-2 truncate">{userEmail}</p>
+                  <p className="text-muted-foreground px-2 text-xs">Logged in as</p>
+                  <p className="truncate px-2 text-sm font-medium">{userEmail}</p>
                   <Button
                     variant="outline"
-                    className="w-full justify-start bg-transparent cursor-pointer"
+                    className="w-full cursor-pointer justify-start bg-transparent"
                     onClick={onLogout}
                   >
                     <LogOut className="mr-2 h-4 w-4" />
@@ -486,7 +573,7 @@ export function GuestList({
               ) : (
                 <Button
                   variant="outline"
-                  className="w-full justify-start bg-transparent cursor-pointer"
+                  className="w-full cursor-pointer justify-start bg-transparent"
                   onClick={onOpenLogin}
                 >
                   <LogIn className="mr-2 h-4 w-4" />
@@ -495,15 +582,15 @@ export function GuestList({
               )}
             </div>
 
-            <div className="pt-3 border-t border-border space-y-2">
+            <div className="border-border space-y-2 border-t pt-3">
               <Link href="/terms" target="_blank">
-                <Button variant="ghost" className="w-full justify-start text-xs cursor-pointer h-8">
+                <Button variant="ghost" className="h-8 w-full cursor-pointer justify-start text-xs">
                   <FileText className="mr-2 h-3 w-3" />
                   Terms of Service
                 </Button>
               </Link>
               <Link href="/privacy" target="_blank">
-                <Button variant="ghost" className="w-full justify-start text-xs cursor-pointer h-8">
+                <Button variant="ghost" className="h-8 w-full cursor-pointer justify-start text-xs">
                   <FileText className="mr-2 h-3 w-3" />
                   Privacy Policy
                 </Button>

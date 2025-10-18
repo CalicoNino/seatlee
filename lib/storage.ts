@@ -1,23 +1,23 @@
-import type { AppState } from "./types";
+import type { AppState } from "./types"
 
-const STORAGE_KEY = "seatlee-app-state";
+const STORAGE_KEY = "seatlee-app-state"
 
 export function saveToLocalStorage(state: AppState): void {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
   } catch (error) {
-    console.error("Failed to save to localStorage:", error);
+    console.error("Failed to save to localStorage:", error)
   }
 }
 
 export function loadFromLocalStorage(): AppState | null {
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
+    const data = localStorage.getItem(STORAGE_KEY)
     if (data) {
-      return JSON.parse(data);
+      return JSON.parse(data)
     }
   } catch (error) {
-    console.error("Failed to load from localStorage:", error);
+    console.error("Failed to load from localStorage:", error)
   }
-  return null;
+  return null
 }

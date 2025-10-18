@@ -48,11 +48,11 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed right-6 bottom-6 z-50">
       {isOpen && (
-        <Card className="mb-4 animate-in slide-in-from-bottom-4 p-3 shadow-2xl max-h-[80vh] overflow-y-auto">
+        <Card className="animate-in slide-in-from-bottom-4 mb-4 max-h-[80vh] overflow-y-auto p-3 shadow-2xl">
           <div className="space-y-2">
-            <div className="mb-3 font-serif text-sm font-semibold text-foreground">Quick Add</div>
+            <div className="text-foreground mb-3 font-serif text-sm font-semibold">Quick Add</div>
 
             {showCustomInput ? (
               <div className="space-y-2">
@@ -70,7 +70,12 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                   }}
                 />
                 <div className="flex gap-2">
-                  <Button variant="default" size="sm" onClick={handleCustomAdd} className="flex-1 cursor-pointer">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={handleCustomAdd}
+                    className="flex-1 cursor-pointer"
+                  >
                     Add
                   </Button>
                   <Button
@@ -88,7 +93,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
               </div>
             ) : showQuickSeats ? (
               <div className="space-y-2">
-                <div className="text-xs text-muted-foreground mb-2">Select seats:</div>
+                <div className="text-muted-foreground mb-2 text-xs">Select seats:</div>
                 <div className="grid grid-cols-3 gap-2">
                   {quickSeatOptions.map((seats) => (
                     <Button
@@ -96,7 +101,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                       variant="outline"
                       size="sm"
                       onClick={() => handleQuickAdd(seats)}
-                      className="h-12 w-12 p-0 cursor-pointer"
+                      className="h-12 w-12 cursor-pointer p-0"
                     >
                       {seats}
                     </Button>
@@ -117,7 +122,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                   variant="outline"
                   size="sm"
                   onClick={() => setShowQuickSeats(true)}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <Circle className="mr-2 h-4 w-4" />
                   Round Table
@@ -129,7 +134,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                     onAddTable("square", 4)
                     setIsOpen(false)
                   }}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <Square className="mr-2 h-4 w-4" />
                   Square Table
@@ -141,12 +146,12 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                     onAddTable("rectangle", 6)
                     setIsOpen(false)
                   }}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <RectangleHorizontal className="mr-2 h-4 w-4" />
                   Rectangle Table
                 </Button>
-                <div className="my-2 border-t border-border" />
+                <div className="border-border my-2 border-t" />
                 <Button
                   variant="outline"
                   size="sm"
@@ -154,7 +159,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                     onAddElement("dancefloor")
                     setIsOpen(false)
                   }}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <Sparkles className="mr-2 h-4 w-4" />
                   Dance Floor
@@ -166,7 +171,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                     onAddElement("stage")
                     setIsOpen(false)
                   }}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <Music className="mr-2 h-4 w-4" />
                   Stage
@@ -178,7 +183,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                     onAddElement("dj")
                     setIsOpen(false)
                   }}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <Radio className="mr-2 h-4 w-4" />
                   DJ Booth
@@ -190,7 +195,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                     onAddElement("bar")
                     setIsOpen(false)
                   }}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <Wine className="mr-2 h-4 w-4" />
                   Bar
@@ -202,7 +207,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                     onAddElement("entrance")
                     setIsOpen(false)
                   }}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <DoorOpen className="mr-2 h-4 w-4" />
                   Entrance
@@ -214,17 +219,17 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
                     onAddElement("buffet")
                     setIsOpen(false)
                   }}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <UtensilsCrossed className="mr-2 h-4 w-4" />
                   Buffet
                 </Button>
-                <div className="my-2 border-t border-border" />
+                <div className="border-border my-2 border-t" />
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setShowCustomInput(true)}
-                  className="w-full justify-start cursor-pointer"
+                  className="w-full cursor-pointer justify-start"
                 >
                   <Box className="mr-2 h-4 w-4" />
                   Custom Element
@@ -238,7 +243,7 @@ export function FloatingAddMenu({ onAddTable, onAddElement }: FloatingAddMenuPro
       <Button
         onClick={() => setIsOpen(!isOpen)}
         size="icon"
-        className="h-16 w-16 rounded-full shadow-2xl transition-all hover:scale-110 hover:shadow-primary/50 cursor-pointer"
+        className="hover:shadow-primary/50 h-16 w-16 cursor-pointer rounded-full shadow-2xl transition-all hover:scale-110"
       >
         <Plus className={`h-7 w-7 transition-transform ${isOpen ? "rotate-45" : ""}`} />
       </Button>
