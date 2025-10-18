@@ -1,0 +1,33 @@
+name: Release
+
+on:
+    push:
+        branches: [main]
+
+permissions:
+    contents: write # create tags and releases
+    issues: write # optional: if using release notes references
+    pull-requests: write # optional: annotate PRs
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # IMPORTANT: semantic-release needs full history
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+
+            - name: Install deps for release step
+              run: |
+                  corepack enable || true
+                  npm ci || npm i -D semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git @semantic-release/github
+
+            - name: Semantic Release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npx semantic-release

@@ -164,7 +164,7 @@ export async function exportSeatingChartToPDF(
 
     return fileName;
   } catch (error) {
-    console.error("[v0] PDF export error:", error);
+    console.error("PDF export error:", error);
     throw error;
   }
 }

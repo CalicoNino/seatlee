@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Tip, not a blocker:
+echo "Tip: use 'bun run cz' for guided conventional commits ✨"
