@@ -1,12 +1,19 @@
-"use client"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Chrome, Github, Mail } from "lucide-react"
+"use client";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Chrome, Github, Mail } from "lucide-react";
 
 interface LoginModalProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onLogin: (provider: string) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onLogin: (provider: string) => void;
 }
 
 export function LoginModal({ open, onOpenChange, onLogin }: LoginModalProps) {
@@ -14,8 +21,12 @@ export function LoginModal({ open, onOpenChange, onLogin }: LoginModalProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-serif text-2xl">Sign in to Seatlee</DialogTitle>
-          <DialogDescription>Choose your preferred sign-in method to sync your seating charts</DialogDescription>
+          <DialogTitle className="font-serif text-2xl">
+            Sign in to Seatlee
+          </DialogTitle>
+          <DialogDescription>
+            Choose your preferred sign-in method to sync your seating charts
+          </DialogDescription>
         </DialogHeader>
         <div className="space-y-3 py-4">
           <Button
@@ -48,5 +59,5 @@ export function LoginModal({ open, onOpenChange, onLogin }: LoginModalProps) {
         </p>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

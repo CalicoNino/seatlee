@@ -1,22 +1,29 @@
-"use client"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Card } from "@/components/ui/card"
-import { Users, Sparkles } from "lucide-react"
-import type { Table, TableShape } from "@/lib/types"
+"use client";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Card } from "@/components/ui/card";
+import { Users, Sparkles } from "lucide-react";
+import type { Table, TableShape } from "@/lib/types";
 
 interface Template {
-  id: string
-  name: string
-  description: string
-  guestCount: number
-  tableCount: number
-  preview: () => { tables: Table[] }
+  id: string;
+  name: string;
+  description: string;
+  guestCount: number;
+  tableCount: number;
+  preview: () => { tables: Table[] };
 }
 
 interface TemplatesModalProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSelectTemplate: (tables: Table[]) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSelectTemplate: (tables: Table[]) => void;
 }
 
 const templates: Template[] = [
@@ -76,9 +83,15 @@ const templates: Template[] = [
     preview: () => ({
       tables: [
         ...Array.from({ length: 20 }, (_, i) => {
-          const row = Math.floor(i / 5)
-          const col = i % 5
-          return createTable(`T${i + 1}`, "round", 10, 150 + col * 250, 150 + row * 250)
+          const row = Math.floor(i / 5);
+          const col = i % 5;
+          return createTable(
+            `T${i + 1}`,
+            "round",
+            10,
+            150 + col * 250,
+            150 + row * 250
+          );
         }),
         createElement("DF1", "Dance Floor", "dancefloor", 1400, 400, 300, 300),
         createElement("ST1", "Stage", "stage", 1400, 100, 300, 150),
@@ -113,7 +126,7 @@ const templates: Template[] = [
       ],
     }),
   },
-]
+];
 
 function createTable(
   id: string,
@@ -122,7 +135,7 @@ function createTable(
   x: number,
   y: number,
   width?: number,
-  height?: number,
+  height?: number
 ): Table {
   return {
     id,
@@ -135,7 +148,7 @@ function createTable(
     height: height || (shape === "rectangle" ? 140 : 180),
     guests: [],
     type: "table",
-  }
+  };
 }
 
 function createElement(
@@ -145,12 +158,18 @@ function createElement(
   x: number,
   y: number,
   width: number,
-  height: number,
+  height: number
 ): Table {
   return {
     id,
     name,
-    shape: type === "stage" || type === "buffet" || type === "bar" || type === "entrance" ? "rectangle" : "square",
+    shape:
+      type === "stage" ||
+      type === "buffet" ||
+      type === "bar" ||
+      type === "entrance"
+        ? "rectangle"
+        : "square",
     seats: 0,
     x,
     y,
@@ -158,15 +177,19 @@ function createElement(
     height,
     guests: [],
     type,
-  }
+  };
 }
 
-export function TemplatesModal({ open, onOpenChange, onSelectTemplate }: TemplatesModalProps) {
+export function TemplatesModal({
+  open,
+  onOpenChange,
+  onSelectTemplate,
+}: TemplatesModalProps) {
   const handleSelectTemplate = (template: Template) => {
-    const { tables } = template.preview()
-    onSelectTemplate(tables)
-    onOpenChange(false)
-  }
+    const { tables } = template.preview();
+    onSelectTemplate(tables);
+    onOpenChange(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -176,7 +199,9 @@ export function TemplatesModal({ open, onOpenChange, onSelectTemplate }: Templat
             <Sparkles className="h-6 w-6 text-primary" />
             Choose a Template
           </DialogTitle>
-          <DialogDescription>Start with a pre-designed layout and customize it to your needs</DialogDescription>
+          <DialogDescription>
+            Start with a pre-designed layout and customize it to your needs
+          </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4 sm:grid-cols-2">
           {templates.map((template) => (
@@ -185,15 +210,20 @@ export function TemplatesModal({ open, onOpenChange, onSelectTemplate }: Templat
               className="p-4 cursor-pointer hover:border-primary hover:shadow-lg transition-all duration-200"
               onClick={() => handleSelectTemplate(template)}
             >
-              <h3 className="font-serif text-lg font-semibold mb-2">{template.name}</h3>
-              <p className="text-sm text-muted-foreground mb-4">{template.description}</p>
+              <h3 className="font-serif text-lg font-semibold mb-2">
+                {template.name}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {template.description}
+              </p>
               <div className="flex items-center gap-4 text-xs text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <Users className="h-3 w-3" />
                   {template.guestCount} guests
                 </div>
                 <div className="flex items-center gap-1">
-                  <span className="font-medium">{template.tableCount}</span> tables
+                  <span className="font-medium">{template.tableCount}</span>{" "}
+                  tables
                 </div>
               </div>
             </Card>
@@ -201,5 +231,5 @@ export function TemplatesModal({ open, onOpenChange, onSelectTemplate }: Templat
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

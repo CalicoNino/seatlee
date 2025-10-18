@@ -1,37 +1,59 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import type { TableShape, ElementType } from "@/lib/types"
-import { Plus, Square, Circle, RectangleHorizontal, Music, Sparkles, Radio } from "lucide-react"
-import * as React from "react"
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import type { TableShape, ElementType } from "@/lib/types";
+import {
+  Plus,
+  Square,
+  Circle,
+  RectangleHorizontal,
+  Music,
+  Sparkles,
+  Radio,
+} from "lucide-react";
+import { useState } from "react";
 
 interface TableControlsProps {
-  onAddTable: (shape: TableShape, seats: number) => void
-  onAddElement: (type: ElementType) => void // Added element addition handler
+  onAddTable: (shape: TableShape, seats: number) => void;
+  onAddElement: (type: ElementType) => void; // Added element addition handler
 }
 
-export function TableControls({ onAddTable, onAddElement }: TableControlsProps) {
-  const [shape, setShape] = React.useState<TableShape>("round")
-  const [seats, setSeats] = React.useState(6)
+export function TableControls({
+  onAddTable,
+  onAddElement,
+}: TableControlsProps) {
+  const [shape, setShape] = useState<TableShape>("round");
+  const [seats, setSeats] = useState(6);
 
   const handleAddTable = () => {
-    onAddTable(shape, seats)
-  }
+    onAddTable(shape, seats);
+  };
 
   return (
     <div className="space-y-6">
       <Card className="p-4 shadow-sm">
-        <h3 className="mb-3 font-serif text-base font-semibold text-card-foreground">Add Table</h3>
+        <h3 className="mb-3 font-serif text-base font-semibold text-card-foreground">
+          Add Table
+        </h3>
         <div className="space-y-3">
           <div>
             <Label htmlFor="shape" className="text-xs font-medium">
               Shape
             </Label>
-            <Select value={shape} onValueChange={(value) => setShape(value as TableShape)}>
+            <Select
+              value={shape}
+              onValueChange={(value) => setShape(value as TableShape)}
+            >
               <SelectTrigger id="shape" className="mt-1">
                 <SelectValue />
               </SelectTrigger>
@@ -81,7 +103,9 @@ export function TableControls({ onAddTable, onAddElement }: TableControlsProps) 
       </Card>
 
       <Card className="p-4 shadow-sm">
-        <h3 className="mb-3 font-serif text-base font-semibold text-card-foreground">Add Elements</h3>
+        <h3 className="mb-3 font-serif text-base font-semibold text-card-foreground">
+          Add Elements
+        </h3>
         <div className="space-y-2">
           <Button
             onClick={() => onAddElement("dancefloor")}
@@ -92,16 +116,26 @@ export function TableControls({ onAddTable, onAddElement }: TableControlsProps) 
             <Sparkles className="mr-2 h-4 w-4" />
             Dance Floor
           </Button>
-          <Button onClick={() => onAddElement("stage")} variant="outline" className="w-full justify-start" size="sm">
+          <Button
+            onClick={() => onAddElement("stage")}
+            variant="outline"
+            className="w-full justify-start"
+            size="sm"
+          >
             <Music className="mr-2 h-4 w-4" />
             Stage
           </Button>
-          <Button onClick={() => onAddElement("dj")} variant="outline" className="w-full justify-start" size="sm">
+          <Button
+            onClick={() => onAddElement("dj")}
+            variant="outline"
+            className="w-full justify-start"
+            size="sm"
+          >
             <Radio className="mr-2 h-4 w-4" />
             DJ Booth
           </Button>
         </div>
       </Card>
     </div>
-  )
+  );
 }
